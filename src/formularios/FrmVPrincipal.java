@@ -21,12 +21,17 @@ public class FrmVPrincipal extends javax.swing.JFrame {
      */
     public FrmVPrincipal() {
         initComponents();
+        try{
         this.setTitle(Sesion.app.getAPPNOMBRE()+"      "+Sesion.app.getVERSION());
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
         iblUser.setText("Usuario: "+Sesion.user.getUsr() + " "+Sesion.user.getNombre()+" "+Sesion.user.getaPaterno()+" "+Sesion.user.getaMaterno()+" "+Sesion.user.getIdUser());
         Color c1 = new Color(216,239,250);
         getContentPane().setBackground(c1);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        }catch(Exception e)
+            {
+               JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e); 
+            }
     }
 
     /**
@@ -211,51 +216,81 @@ public class FrmVPrincipal extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         // TODO add your handling code here:
-        String opciones[] = {"Si","No"};
-       int opcion = JOptionPane.showOptionDialog(rootPane, "¿Estas seguro que quieres salir?", "Cerrar", 0, 0, null, opciones, this);
-       if(opcion==JOptionPane.YES_OPTION)
-       {
-           System.exit(0);
-       }
-       else 
-       {
-          if(opcion==JOptionPane.NO_OPTION) {System.out.println("");}
-       }
+        try
+        {
+            String opciones[] = {"Si","No"};
+           int opcion = JOptionPane.showOptionDialog(rootPane, "¿Estas seguro que quieres salir?", "Cerrar", 0, 0, null, opciones, this);
+           if(opcion==JOptionPane.YES_OPTION)
+           {
+               System.exit(0);
+           }
+           else 
+           {
+              if(opcion==JOptionPane.NO_OPTION) {System.out.println("");}
+           }
+      }catch(Exception e){
+          JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+      }
     }//GEN-LAST:event_formWindowClosing
 
     private void btnInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInsertarActionPerformed
         // TODO add your handling code here:
-        FrmInsertar insertN  = new FrmInsertar(this,true);
-        insertN.setVisible(true);
+        try{
+            FrmInsertar insertN  = new FrmInsertar(this,true);
+            insertN.setVisible(true);
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_btnInsertarActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
-        FrmConsultas listarConsul  = new FrmConsultas(this,true);
-        listarConsul.setVisible(true);
+        try{
+            FrmConsultas listarConsul  = new FrmConsultas(this,true);
+            listarConsul.setVisible(true);
+          }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        FrmModificar modifConsul  = new FrmModificar(this,true);
-        modifConsul.setVisible(true);
+        try{
+            FrmModificar modifConsul  = new FrmModificar(this,true);
+            modifConsul.setVisible(true);
+            }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        FrmLogin fl = new FrmLogin();
-        String usr = null;
-        Sesion.loginOut(usr, "Mari", "Vásquez", "García", 1);
-        fl.setVisible(true);
-        fl.setLocation(650, 250);
+        try{
+            this.setVisible(false);
+            FrmLogin fl = new FrmLogin();
+            String usr = null;
+            Sesion.loginOut(usr, "Mari", "Vásquez", "García", 1);
+            fl.setVisible(true);
+            fl.setLocation(650, 250);
+            }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void mEspecialistasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mEspecialistasActionPerformed
         // TODO add your handling code here:
-        Especialistas esp = new Especialistas(this,true);
-        esp.setVisible(true);
-        esp.setLocation(650,250);
+        try{
+            Especialistas esp = new Especialistas(this,true);
+            esp.setVisible(true);
+            esp.setLocation(650,250);
+            }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_mEspecialistasActionPerformed
 
 

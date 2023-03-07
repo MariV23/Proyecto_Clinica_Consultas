@@ -154,7 +154,12 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        try{
         System.exit(0);
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

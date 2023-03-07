@@ -7,6 +7,7 @@ package formularios;
 import clases.Sesion;
 import java.awt.Color;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,12 +20,17 @@ public class FrmModificar extends javax.swing.JDialog {
      */
     public FrmModificar(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        initComponents();
-        this.setTitle(Sesion.app.getAPPNOMBRE()+"       "+Sesion.app.getVERSION());
-        Color c1 = new Color(216,239,250);
-        getContentPane().setBackground(c1);
-        setLocation(500, 150);
-        setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
+        try{
+            initComponents();
+            this.setTitle(Sesion.app.getAPPNOMBRE()+"       "+Sesion.app.getVERSION());
+            Color c1 = new Color(216,239,250);
+            getContentPane().setBackground(c1);
+            setLocation(500, 150);
+            setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
+            }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
     }
 
     /**
