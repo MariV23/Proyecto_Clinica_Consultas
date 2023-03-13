@@ -6,6 +6,7 @@ package formularios;
 
 import clases.Sesion;
 import java.awt.Color;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
@@ -22,12 +23,13 @@ public class FrmVPrincipal extends javax.swing.JFrame {
     public FrmVPrincipal() {
         initComponents();
         try{
-        this.setTitle(Sesion.app.getAPPNOMBRE()+"      "+Sesion.app.getVERSION());
+        this.setTitle("Home                                                                                     "+Sesion.app.getAPPNOMBRE()+"      "+Sesion.app.getVERSION());
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
         iblUser.setText("Usuario: "+Sesion.user.getUsr() + " "+Sesion.user.getNombre()+" "+Sesion.user.getaPaterno()+" "+Sesion.user.getaMaterno()+" "+Sesion.user.getIdUser());
-        Color c1 = new Color(216,239,250);
+        Color c1 = new Color(255,255,255);
         getContentPane().setBackground(c1);
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+        this.setExtendedState(this.MAXIMIZED_BOTH);
         }catch(Exception e)
             {
                JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e); 
@@ -57,11 +59,11 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
         mEspecialistas = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        mHorarios = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(216, 239, 250));
+        setBackground(new java.awt.Color(255, 255, 255));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -107,7 +109,8 @@ public class FrmVPrincipal extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.png"))); // NOI18N
 
-        jLabel1.setFont(new java.awt.Font("Berlin Sans FB", 0, 25)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Berlin Sans FB Demi", 0, 35)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 102));
         jLabel1.setText("Vida Sana");
 
         jLabel2.setText("Tu salud en nuestras manos");
@@ -125,22 +128,25 @@ public class FrmVPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(112, 112, 112)
-                .addComponent(jLabel3))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2))))
+                        .addGap(112, 112, 112)
+                        .addComponent(jLabel3))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(21, 21, 21)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jMenu1.setText("Inicio");
@@ -150,6 +156,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         jMenu2.setText("Información de la clínica");
         jMenu2.setFont(new java.awt.Font("Times New Roman", 0, 20)); // NOI18N
 
+        mEspecialistas.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         mEspecialistas.setText("Especialistas");
         mEspecialistas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,8 +165,14 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(mEspecialistas);
 
-        jMenuItem2.setText("Horarios");
-        jMenu2.add(jMenuItem2);
+        mHorarios.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        mHorarios.setText("Horarios");
+        mHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mHorariosActionPerformed(evt);
+            }
+        });
+        jMenu2.add(mHorarios);
 
         jMenuBar1.add(jMenu2);
 
@@ -187,16 +200,13 @@ public class FrmVPrincipal extends javax.swing.JFrame {
                         .addComponent(iblUser, javax.swing.GroupLayout.PREFERRED_SIZE, 377, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addComponent(btnSalir))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSalir)))
                 .addContainerGap(617, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(70, 70, 70)
                 .addComponent(iblUser)
@@ -218,8 +228,9 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try
         {
+            Icon salida = new ImageIcon(getClass().getResource("/imagenes/salida.png"));
             String opciones[] = {"Si","No"};
-           int opcion = JOptionPane.showOptionDialog(rootPane, "¿Estas seguro que quieres salir?", "Cerrar", 0, 0, null, opciones, this);
+           int opcion = JOptionPane.showOptionDialog(rootPane, "¿Estas seguro que quieres salir?", "Cerrar", 0, 0, salida, opciones, this);
            if(opcion==JOptionPane.YES_OPTION)
            {
                System.exit(0);
@@ -275,6 +286,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
             Sesion.loginOut(usr, "Mari", "Vásquez", "García", 1);
             fl.setVisible(true);
             fl.setLocation(650, 250);
+            
             }catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
@@ -286,12 +298,21 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         try{
             Especialistas esp = new Especialistas(this,true);
             esp.setVisible(true);
-            esp.setLocation(650,250);
+            //esp.setLocation(650,250);
+            //esp.setSize(2500, 1150);
             }catch(Exception e)
         {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }//GEN-LAST:event_mEspecialistasActionPerformed
+
+    private void mHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mHorariosActionPerformed
+        // TODO add your handling code here:
+        
+        Horarios hr = new Horarios(this,true);
+        hr.setVisible(true);
+        
+    }//GEN-LAST:event_mHorariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -308,8 +329,8 @@ public class FrmVPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenuItem mEspecialistas;
+    private javax.swing.JMenuItem mHorarios;
     // End of variables declaration//GEN-END:variables
 }

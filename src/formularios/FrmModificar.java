@@ -22,10 +22,11 @@ public class FrmModificar extends javax.swing.JDialog {
         super(parent, modal);
         try{
             initComponents();
-            this.setTitle(Sesion.app.getAPPNOMBRE()+"       "+Sesion.app.getVERSION());
+            this.setTitle("Modificar consultar                   "+Sesion.app.getAPPNOMBRE()+"       "+Sesion.app.getVERSION());
             Color c1 = new Color(216,239,250);
             getContentPane().setBackground(c1);
-            setLocation(500, 150);
+            setSize(2500, 1150);
+            //setLocation(500, 150);
             setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
             }catch(Exception e)
         {

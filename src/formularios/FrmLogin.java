@@ -8,6 +8,7 @@ package formularios;
 import clases.Sesion;
 import clases.Login;
 import java.awt.Color;
+import java.awt.event.KeyEvent;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -21,7 +22,7 @@ public class FrmLogin extends javax.swing.JFrame {
     /** Creates new form FrmLogin */
     public FrmLogin() {
         initComponents();
-        Color c = new Color(255,255,204);
+        Color c = new Color(255,255,255);
         getContentPane().setBackground(c);
         setIconImage(new ImageIcon(getClass().getResource("/imagenes/logotipo.png")).getImage());
     }
@@ -60,9 +61,14 @@ public class FrmLogin extends javax.swing.JFrame {
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
+        });
 
-        btnAceptar.setBackground(new java.awt.Color(153, 204, 255));
-        btnAceptar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAceptar.setBackground(new java.awt.Color(204, 204, 255));
+        btnAceptar.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -70,8 +76,8 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(153, 204, 255));
-        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCancelar.setBackground(new java.awt.Color(204, 204, 255));
+        btnCancelar.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -79,18 +85,12 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        lbImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/logo.png"))); // NOI18N
+        lbImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/historial.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(115, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
-                .addComponent(btnCancelar)
-                .addGap(122, 122, 122))
             .addGroup(layout.createSequentialGroup()
                 .addGap(95, 95, 95)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,16 +102,23 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addComponent(txtPassword))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(243, 243, 243)
-                .addComponent(lbImage)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(lbImage))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(159, 159, 159)
+                        .addComponent(btnAceptar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnCancelar)))
+                .addContainerGap(184, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(95, Short.MAX_VALUE)
-                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addContainerGap(46, Short.MAX_VALUE)
+                .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbUser)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -119,11 +126,11 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(68, 68, 68)
+                .addGap(100, 100, 100)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
-                .addGap(155, 155, 155))
+                .addGap(123, 123, 123))
         );
 
         pack();
@@ -141,7 +148,8 @@ public class FrmLogin extends javax.swing.JFrame {
                 frmP = new FrmVPrincipal();
                 this.dispose();
                 //JOptionPane.showMessageDialog(this, "Has iniciado sesión correctamente");
-                frmP.setLocation(450, 150);
+                //frmP.setLocation(200, 150);
+                frmP.setSize(2500, 1150);
                 frmP.setVisible(true);
             }
             else
@@ -161,6 +169,14 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        // TODO add your handling code here:
+        if(evt.getKeyCode()== KeyEvent.VK_ENTER)
+        {
+            btnAceptar.doClick();
+        }
+    }//GEN-LAST:event_txtPasswordKeyReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
