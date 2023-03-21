@@ -47,12 +47,12 @@ public class FrmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 204));
 
-        lbUser.setFont(new java.awt.Font("Verdana", 2, 30)); // NOI18N
+        lbUser.setFont(new java.awt.Font("Verdana", 0, 30)); // NOI18N
         lbUser.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbUser.setText("Usuario:");
         lbUser.setAlignmentX(5.0F);
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 2, 30)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 30)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Password:");
 
@@ -93,7 +93,7 @@ public class FrmLogin extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
                     .addComponent(lbUser))
                 .addGap(39, 39, 39)
@@ -172,9 +172,14 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
         // TODO add your handling code here:
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER)
+        try{
+            if(evt.getKeyCode()== KeyEvent.VK_ENTER)
+            {
+                btnAceptar.doClick();
+            }
+        }catch(Exception e)
         {
-            btnAceptar.doClick();
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }//GEN-LAST:event_txtPasswordKeyReleased
 

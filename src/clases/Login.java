@@ -12,8 +12,8 @@ public class Login {
     public boolean Login(String user,String pwd)
     {
         try{
-            String pss = "administrador1";
-            String usuario = "user1";
+            String pss = "admin";
+            String usuario = "admin";
             return (user.equals(usuario) && pwd.equals(pss));
         }catch(Exception e)
         {
