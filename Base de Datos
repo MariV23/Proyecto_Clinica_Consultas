@@ -1,7 +1,0 @@
-select * from especialistas;
-INSERT INTO especialistas VALUES (02 ,9174826483,"Dra. Alba Lopez Guzman", "albalopez@gmail.com", "8:00", "17:00" , 1 );
-INSERT INTO especialistas VALUES (03 ,5674824356,"Dr. Alejandro Perez Gonzalez", "alejandroperez@gmail.com", "8:00", "18:00" , 2 );
-INSERT INTO especialistas VALUES (04 ,3254679673,"Dra. Luz Esperenza RuIZ Rojas", "luzesperanza@gmail.com", "8:00", "13:00" , 3 );
-INSERT INTO especialistas VALUES (05 ,1214967356,"Dra. Sara Avila Quiñones", "saraquinones@gmail.com", "8:00", "14:00" , 4 );
-INSERT INTO especialistas VALUES (06 ,6349183567,"Dr. Rual Arroyo Velasquez", "raularroyo12@gmail.com", "8:00", "12:00" , 5 );
-INSERT INTO especialistas VALUES (07 ,3452612789,"Dr. Hector Campos Sandoval", "hectorsandoval@gmail.com", "8:00", "15:00" , 6 );
