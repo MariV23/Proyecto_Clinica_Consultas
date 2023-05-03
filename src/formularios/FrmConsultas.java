@@ -5,9 +5,14 @@
 package formularios;
 
 import clases.Sesion;
+import config.Conexion;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +23,11 @@ public class FrmConsultas extends javax.swing.JDialog {
     /**
      * Creates new form FrmConsultas
      */
+    Conexion con = new Conexion();
+    Connection conet;
+    DefaultTableModel modelo;
+    Statement st;
+    ResultSet rs;
     public FrmConsultas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         try{
@@ -33,7 +43,35 @@ public class FrmConsultas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }
-
+    
+    void consulta_Citas()
+    {
+        String sql = "select * from citas";
+        
+        try{
+            conet = con.getConnection();
+            st = conet.createStatement();
+            rs = st.executeQuery(sql);
+            Object[] cit = new Object[6];
+            modelo = (DefaultTableModel) tblCitas.getModel();
+            while(rs.next())
+            {
+                cit [0] = rs.getInt("id_Citas");
+                cit [1] = rs.getString("n_paciente");
+                cit [2] = rs.getString("fecha");
+                cit [3] = rs.getString("hora");
+                cit [4] = rs.getInt("id_Paciente");
+                cit [5] = rs.getInt("id_Especialista");
+                
+                modelo.addRow(cit);
+            }
+            tblCitas.setModel(modelo);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,7 +88,7 @@ public class FrmConsultas extends javax.swing.JDialog {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblCitas = new javax.swing.JTable();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -73,15 +111,15 @@ public class FrmConsultas extends javax.swing.JDialog {
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblCitas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Núm. Cita", "Nombre del paciente", "Especialista", "Fecha", "Hora", "Área"
+                "Núm. Cita", "Nombre del paciente", "Fecha", "Hora", "Id_Paciente", "Id_Especialista"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblCitas);
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel8.setText("Número de cita:");
@@ -177,6 +215,6 @@ public class FrmConsultas extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblCitas;
     // End of variables declaration//GEN-END:variables
 }

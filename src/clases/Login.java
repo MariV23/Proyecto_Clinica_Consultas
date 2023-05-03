@@ -12,7 +12,7 @@ public class Login {
     public boolean Login(String user,String pwd)
     {
         try{
-            String pss = "admin";
+            String pss = "admin_123";
             String usuario = "admin";
             return (user.equals(usuario) && pwd.equals(pss));
         }catch(Exception e)

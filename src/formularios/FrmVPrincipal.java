@@ -5,7 +5,9 @@
 package formularios;
 
 import clases.Sesion;
+import config.Conexion;
 import java.awt.Color;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import javax.swing.Icon;
@@ -19,7 +21,8 @@ import java.util.Date;
  * @author vmary
  */
 public class FrmVPrincipal extends javax.swing.JFrame {
-
+    Conexion con = new Conexion();
+    Connection conet;
     /**
      * Creates new form FrmVPrincipal
      */
@@ -36,6 +39,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         Date fecha = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         jFecha.setText(sdf.format(fecha));
+        
         }catch(Exception e)
             {
                JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e); 
@@ -77,6 +81,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
+        setMaximumSize(new java.awt.Dimension(2147483647, 2147481100));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
@@ -172,7 +177,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 789, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 786, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -356,6 +361,8 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             FrmConsultas listarConsul  = new FrmConsultas(this,true);
+            
+            listarConsul.consulta_Citas();
             listarConsul.setVisible(true);
           }catch(Exception e)
         {
@@ -394,6 +401,7 @@ public class FrmVPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         try{
             Especialistas esp = new Especialistas(this,true);
+            esp.consulta_Especialistas();
             esp.setVisible(true);
             //esp.setLocation(650,250);
             //esp.setSize(2500, 1150);
