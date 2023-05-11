@@ -1,0 +1,49 @@
+------FrmConsultas----------
+
+Elemento            nombre
+
+JTable--------------> tblCitas
+numero de cita------> numCita
+nombre del paciente-> nomPac
+horario-------------> hora
+Area----------------> area
+
+
+
+
+-----especialistas--------
+
+Jtable------------------->tblEsp
+id_especialista----------> idEsp
+cedula prof--------------> cedEsp
+nombre del esp-----------> nomEsp
+correo-------------------> correoEsp
+hora de entrada---------->hrEnt
+
+
+----------frmInsertar-------
+
+JTable------------------> tblCita
+Nombre paciente---------> nomPaci
+telefono----------------> telef
+correo elect------------> corPac
+edad--------------------> edad
+
+
+---------FrmLogin------------
+Usuario-----------------> txtUser
+password----------------> txtPassword
+
+----------FrmModificar--------
+JLabel------------------> tabConsultas
+id_consulta-------------> idConsulta
+Nombre Paciente---------> nombPac
+Especialista------------> espec
+Fecha-------------------> fecha
+hora--------------------> hrCon
+Area--------------------> areaC
+Id Paciente-------------> idPac
+Id Especialista---------> idEspec
+
+
+
