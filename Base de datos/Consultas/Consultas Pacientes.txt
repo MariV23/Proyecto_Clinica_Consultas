@@ -1,0 +1,33 @@
+Métodos de consultas 
+
+
+void consulta_Pacientes()
+    {
+        String sql = "select * from pacientes ";
+        
+        try{
+            conet = con.getConnection();
+            st = conet.createStatement();
+            rs = st.executeQuery(sql);
+		//Cambiar el nombre a el arreglo según la tabla
+            Object[] nom = new Object[5]; 
+            modelo = (DefaultTableModel) tblNom.getModel();
+            while(rs.next())
+            {
+		
+                nom [0] = rs.getInt("id_Pacientes");
+                nom [1] = rs.getString("nombre");
+                nom [2] = rs.getInt("telefono");
+                nom [3] = rs.getString("correo");
+                nom [4] = rs.getInt("edad");
+               
+                
+		    //se cambia dentro del paréntesis por el nombre del arreglo
+                modelo.addRow(nom);
+            }
+		//Antes del .setModel va el nombre de nuestra tabla de la interfaz
+            tblNom.setModel(modelo);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }
