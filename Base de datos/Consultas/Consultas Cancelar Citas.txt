@@ -1,0 +1,29 @@
+Consultas Cancelar Citas
+
+void consulta_Can_Cita()
+    {
+        String sql = "select * from can_cita (nombre de la tabla)";
+        
+        try{
+            conet = con.getConnection();
+            st = conet.createStatement();
+            rs = st.executeQuery(sql);
+		//Cambiar el nombre a el arreglo según la tabla
+            Object[] cca = new Object[3]; 
+            modelo = (DefaultTableModel) tblCca.getModel();
+            while(rs.next())
+            {
+		   
+                cca [0] = rs.getInt("idcan_Cita");
+                cca [1] = rs.getInt("motivo");
+                cca [2] = rs.getString("id_Cita");
+             
+		  
+                modelo.addRow(cca);
+            }
+		
+            tblCca.setModel(modelo);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }

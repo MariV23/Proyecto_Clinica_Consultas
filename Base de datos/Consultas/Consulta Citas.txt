@@ -1,0 +1,33 @@
+Consulta Citas
+
+void consulta_Citas()
+    {
+        String sql = "select * from citas";
+        
+        try{
+            conet = con.getConnection();
+            st = conet.createStatement();
+            rs = st.executeQuery(sql);
+		
+            Object[] cit = new Object[6]; 
+            modelo = (DefaultTableModel) tblCit.getModel();
+            while(rs.next())
+            {
+		 
+                cit [0] = rs.getInt("id_Citas");
+                cit [1] = rs.getString("n_Paciente");
+                cit [2] = rs.getString("fecha");
+                cit [3] = rs.getInt("hora");
+                cit [4] = rs.getInt("id_Paciente");
+                cit [5] = rs.getInt("id_Especialista");
+              
+      
+		   
+                modelo.addRow(cit);
+            }
+		
+            tblCit.setModel(modelo);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }

@@ -1,0 +1,29 @@
+consultas de Area
+
+
+void consulta_Area()
+    {
+        String sql = "select * from area ";
+        
+        try{
+            conet = con.getConnection();
+            st = conet.createStatement();
+            rs = st.executeQuery(sql);
+
+            Object[] area = new Object[3]; 
+            modelo = (DefaultTableModel) tblArea.getModel();
+            while(rs.next())
+            {
+		 
+                area [0] = rs.getInt("id_Area");
+                area [1] = rs.getString("nombre");
+                area [2] = rs.getString("descripcion");
+             
+                modelo.addRow(area);
+            }
+		
+            tblArea.setModel(modelo);
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }
