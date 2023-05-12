@@ -28,7 +28,7 @@ public class Especialistas extends javax.swing.JDialog {
     DefaultTableModel modelo;
     Statement st;
     ResultSet rs;
-    int indiceEsp;
+    int indiceEsp,txtid;
     public Especialistas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         try{
@@ -45,7 +45,7 @@ public class Especialistas extends javax.swing.JDialog {
         }
     }
     
-    void consulta_Especialistas()
+    public void consulta_Especialistas()
     {
         String sql = "select * from especialistas";
         
@@ -72,6 +72,79 @@ public class Especialistas extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }
+    
+     public void agregar_Especialista(){
+        String idEspe=idEsp.getText();
+        String cedEspe=cedEsp.getText();
+        String nombreE=nomEsp.getText();
+        String correoE=correoEsp.getText();
+        String horaE=hrEnt.getText();
+        String horaS=hrSal.getText();
+        String idArea=id_Area.getText();
+         int res = 0; 
+        try{
+            if( idEspe.equals("")||cedEspe.equals("")|| nombreE.equals("")|| correoE.equals("") || horaE.equals("") || horaS.equals("") || idArea.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");
+                
+            }else{
+                String sql="insert into especialistas(id_Especialistas,ced_Especialista,nombre,correo,hora_Entrada,hora_Salida,id_Area) values('"+idEspe+"','"+cedEspe+"','"+nombreE+"','"+correoE+"','"+horaE+"','"+horaS+"','"+idArea+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego a la tabla exitosamente");
+               res = txtid ++;
+               
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo agregar a la tabla, error:  "+e);
+        }
+    }
+    
+     public void actualizar_Especialistas()
+    {
+        String cedEspe=cedEsp.getText();
+        String nombreE=nomEsp.getText();
+        String correoE=correoEsp.getText();
+        String horaE=hrEnt.getText();
+        String horaS=hrSal.getText();
+        String idArea=id_Area.getText();
+        
+        try{
+            if( cedEsp.equals("")|| nombreE.equals("")|| correoE.equals("") || horaE.equals("") || horaS.equals("")|| idArea.equals("")){
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
+
+            }else{ 
+                String sql= "Update especialistas set id_Area = '"+ indiceEsp+"',ced_Especialista='"+cedEspe+"',nombre='"+nombreE+"',correo='"+correoE+"',hora_Entrada='"+horaE+"',hora_Salida='"+horaS+"',id_Area='"+idArea+"' where id_Area="+indiceEsp;
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Registro actualizado");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+
+        }
+    }
+     
+     
+     public void eliminar_Especialista(){
+       
+        int fila =tblEsp.getSelectedRow();
+        try{
+            if(fila<0){
+                JOptionPane.showMessageDialog(null,"dato no seleccionado" );
+                
+            }else{
+                String sql= "delete from especialistas where id_Especialistas = " + indiceEsp;
+                conet= con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);   
+            JOptionPane.showMessageDialog(null,"Se elimino el registro");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar el resgistro, error: "+e);
+        }
+   }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,6 +172,7 @@ public class Especialistas extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         idEsp = new javax.swing.JTextField();
         btnActEsp = new javax.swing.JButton();
+        btnEEsp = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEsp = new javax.swing.JTable();
@@ -112,6 +186,11 @@ public class Especialistas extends javax.swing.JDialog {
 
         btnAgregarEsp.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         btnAgregarEsp.setText("Agregar");
+        btnAgregarEsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEspActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Cédula profesional:");
@@ -156,6 +235,14 @@ public class Especialistas extends javax.swing.JDialog {
             }
         });
 
+        btnEEsp.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        btnEEsp.setText("Eliminar");
+        btnEEsp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEEspActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -180,10 +267,11 @@ public class Especialistas extends javax.swing.JDialog {
                     .addComponent(hrEnt)
                     .addComponent(id_Area)
                     .addComponent(idEsp, javax.swing.GroupLayout.DEFAULT_SIZE, 341, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 223, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnAgregarEsp, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                    .addComponent(btnActEsp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnActEsp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnEEsp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(36, 36, 36))
         );
         jPanel2Layout.setVerticalGroup(
@@ -191,27 +279,19 @@ public class Especialistas extends javax.swing.JDialog {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnAgregarEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnActEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(idEsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(30, 30, 30))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(cedEsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(cedEsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
                             .addComponent(nomEsp, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel9)
                             .addComponent(correoEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -222,7 +302,15 @@ public class Especialistas extends javax.swing.JDialog {
                         .addGap(19, 19, 19)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
-                            .addComponent(hrSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(hrSal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
+                        .addComponent(btnAgregarEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnActEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEEsp)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -296,7 +384,7 @@ public class Especialistas extends javax.swing.JDialog {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
@@ -340,14 +428,28 @@ public class Especialistas extends javax.swing.JDialog {
 
     private void btnActEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActEspActionPerformed
         // TODO add your handling code here:
-        
+        actualizar_Especialistas();
+        consulta_Especialistas();
     }//GEN-LAST:event_btnActEspActionPerformed
+
+    private void btnAgregarEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEspActionPerformed
+        // TODO add your handling code here:
+        agregar_Especialista();
+        consulta_Especialistas();
+    }//GEN-LAST:event_btnAgregarEspActionPerformed
+
+    private void btnEEspActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEEspActionPerformed
+        // TODO add your handling code here:
+        eliminar_Especialista();
+        consulta_Especialistas();
+    }//GEN-LAST:event_btnEEspActionPerformed
 
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActEsp;
     private javax.swing.JButton btnAgregarEsp;
+    private javax.swing.JButton btnEEsp;
     private javax.swing.JTextField cedEsp;
     private javax.swing.JTextField correoEsp;
     private javax.swing.JTextField hrEnt;
