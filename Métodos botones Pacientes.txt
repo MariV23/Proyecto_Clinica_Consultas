@@ -1,0 +1,66 @@
+ public void agregar_Pacientes(){
+        String idP=idPac.getText();
+        String nombreP=nomPac.getText();
+        String telefonoPac=telefonoP.getText();
+        String correo=correoP.getText();
+        String edad=edadP.getText();
+         int res = 0; 
+        try{
+            if( idP.equals("")||nombreP.equals("")|| telefonoPac.equals("")|| correo.equals("")|| edad.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");//Esto es opcional
+                
+            }else{
+                String sql="insert into pacientes(id_Pacientes,nombre,telefono,correo,edad) values('"+idP+"','"+nombreP+"','"+telefonoPac+"','"+correo+"','"+edad+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego a la tabla exitosamente");
+               res = txtid ++;
+               
+            }
+        }catch(Exception e){
+             JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+        }
+    }
+    public void actualizar_Pacientes()
+    {
+        String nombreP=nomPac.getText();
+        String telefonopac=telefonoP.getText();
+        String correo=correoP.getText();
+        String edad=edadP.getText();
+        
+        try{
+            if(nombreP.equals("")|| telefonopac.equals("")|| correo.equals("")|| edad.equals("")){
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
+
+            }else{ 
+                String sql= "Update pacientes set id_Pacientes = '"+ indiceP+"',nombre='"+nombreP+"',telefono='"+telefonopac+"' ,correo='"+correo+"',edad='"+edad+"'where id_Pacientes="+indiceP;
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Registro actualizado");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+
+        }
+    }
+
+    public void eliminar_Paciente(){
+       
+        int fila =tblPaci.getSelectedRow();
+        try{
+            if(fila<0){
+                JOptionPane.showMessageDialog(null,"dato no seleccionado" );
+                
+            }else{
+                String sql= "delete from pacientes where id_Pacientes = " + indiceP;
+                conet= con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);   
+            JOptionPane.showMessageDialog(null,"Se elimino el registro");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar el resgistro, error: "+e);
+        }
+   }

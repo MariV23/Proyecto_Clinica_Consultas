@@ -1,0 +1,72 @@
+ public void agregar_Especialista(){
+        String idEspe=idEsp.getText();
+        String cedEspe=cedEsp.getText();
+        String nombreE=nomEsp.getText();
+        String correoE=correoEsp.getText();
+        String horaE=hrEnt.getText();
+        String horaS=hrSal.getText();
+        String idArea=id_Area.getText();
+         int res = 0; 
+        try{
+            if( idEspe.equals("")||cedEspe.equals("")|| nombreE.equals("")|| correoE.equals("") || horaE.equals("") || horaS.equals("") || idArea.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");
+                
+            }else{
+                String sql="insert into especialistas(id_Especialistas,ced_Especialista,nombre,correo,hora_Entrada,hora_Salida,id_Area) values('"+idEspe+"','"+cedEspe+"','"+nombreE+"','"+correoE+"','"+horaE+"','"+horaS+"','"+idArea+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego a la tabla exitosamente");
+               res = txtid ++;
+               
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo agregar a la tabla, error:  "+e);
+        }
+    }
+    
+     public void actualizar_Especialistas()
+    {
+        String cedEspe=cedEsp.getText();
+        String nombreE=nomEsp.getText();
+        String correoE=correoEsp.getText();
+        String horaE=hrEnt.getText();
+        String horaS=hrSal.getText();
+        String idArea=id_Area.getText();
+        
+        try{
+            if( cedEsp.equals("")|| nombreE.equals("")|| correoE.equals("") || horaE.equals("") || horaS.equals("")|| idArea.equals("")){
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
+
+            }else{ 
+                String sql= "Update especialistas set id_Area = '"+ indiceEsp+"',ced_Especialista='"+cedEspe+"',nombre='"+nombreE+"',correo='"+correoE+"',hora_Entrada='"+horaE+"',hora_Salida='"+horaS+"',id_Area='"+idArea+"' where id_Area="+indiceEsp;
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Registro actualizado");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+
+        }
+    }
+     
+     
+     public void eliminar_Especialista(){
+       
+        int fila =tblEsp.getSelectedRow();
+        try{
+            if(fila<0){
+                JOptionPane.showMessageDialog(null,"dato no seleccionado" );
+                
+            }else{
+                String sql= "delete from especialistas where id_Especialistas = " + indiceEsp;
+                conet= con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);   
+            JOptionPane.showMessageDialog(null,"Se elimino el registro");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar el resgistro, error: "+e);
+        }
+   }

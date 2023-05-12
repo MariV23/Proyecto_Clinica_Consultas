@@ -1,0 +1,23 @@
+void agregarCitast(){
+        String nPaciente=nomPaci.getText();
+        String telef=telef.getText();
+        String correo=corPac.getText();
+	String ed=edad.getText();
+         int res = 0; 
+        try{
+            if( nPaciente.equals("")|| telef.equals("")|| correo.equals("") || ed.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");//Esto es opcional
+                
+            }else{
+                String sql="insert into citas(id_Citas,n_Paciente,fecha,hora,id_Paciente,id_Especialista) values('"+nPaciente+"','"+telef+"','"+correo+"'"','"+ed+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego la exitosamente");
+                limpiarTabla();
+               res= txtid ++;
+               
+            }
+        }catch(Exception e){
+        }
+    }

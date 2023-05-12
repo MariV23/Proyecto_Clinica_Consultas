@@ -1,0 +1,63 @@
+public void agregar_Areas(){
+        String idA=idArea.getText();
+        String nombreA=nomArea.getText();
+        String descripcion=descripcionA.getText();
+         int res = 0; 
+        try{
+            if( idArea.equals("")||nombreA.equals("")|| descripcion.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");
+                
+            }else{
+                String sql="insert into area(id_Area,nombre,descripcion) values('"+idA+"','"+nombreA+"','"+descripcion+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego a la tabla exitosamente");
+               res = txtid ++;
+               
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo agregar a la tabla, error:  "+e);
+        }
+    }
+    
+    public void actualizar_Areas()
+    {
+        String nomA=nomArea.getText();
+        String descrip=descripcionA.getText();
+        
+        try{
+            if( nomA.equals("")|| descrip.equals("")){
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
+
+            }else{ 
+                String sql= "Update area set id_Area = '"+ indiceA+"',nombre='"+nomA+"',descripcion='"+descrip+"' where id_Area="+indiceA;
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Registro actualizado");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+
+        }
+    }
+    
+     public void eliminar_Area(){
+       
+        int fila =tblArea.getSelectedRow();
+        try{
+            if(fila<0){
+                JOptionPane.showMessageDialog(null,"dato no seleccionado" );
+                
+            }else{
+                String sql= "delete from area where id_Area = " + indiceA;
+                conet= con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);   
+            JOptionPane.showMessageDialog(null,"Se elimino el registro");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar el resgistro, error: "+e);
+        }
+   }

@@ -1,0 +1,74 @@
+public void agregar_Citas(){
+        String idCit=id_Cita.getText();
+        String nomP=nom_P.getText();
+        String fecha=fechaC.getText();
+        String hora=horaC.getText();
+        String idPac=id_P.getText();
+        String idEsp=id_E.getText();
+         int res = 0; 
+        try{
+            if( idCit.equals("")||nomP.equals("")|| fecha.equals("")|| hora.equals("") || idPac.equals("") || idEsp.equals("")){
+                JOptionPane.showMessageDialog(null, "Datos incompletos");
+                
+            }else{
+                String sql="insert into citas(id_Citas,n_Paciente,fecha,hora,id_Paciente,id_Especialista) values('"+idCit+"','"+nomP+"','"+fecha+"','"+hora+"','"+idPac+"','"+idEsp+"')";
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Se agrego a la tabla exitosamente");
+               res = txtid ++;
+               
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo agregar a la tabla, error:  "+e);
+        }
+    }
+
+
+
+
+
+
+void actualizar_Citas()
+    {
+        String nomP=nom_P.getText();
+        String fecha=fechaC.getText();
+        String hora=horaC.getText();
+        String idPac=id_P.getText();
+        String idEsp=id_E.getText();
+        
+        try{
+            if( nomP.equals("")|| fecha.equals("")|| hora.equals("")){
+                JOptionPane.showMessageDialog(null, "Ingresa todos los datos");
+
+            }else{ 
+                String sql= "Update citas set id_Citas = '"+ indiceC+"',n_Paciente='"+nomP+"',fecha='"+fecha+"' ,hora='"+hora+"',id_Paciente='"+idPac+"',id_Especialista='"+idEsp+"'where id_Citas="+indiceC;
+                conet = con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);
+                JOptionPane.showMessageDialog(null,"Registro actualizado");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null,"No pudo ser actualizado por el error: "+e);
+
+        }
+    }
+    
+    public void eliminar_Citas(){
+       
+        int fila =tblCit.getSelectedRow();
+        try{
+            if(fila<0){
+                JOptionPane.showMessageDialog(null,"dato no seleccionado" );
+                
+            }else{
+                String sql= "delete from citas where id_Citas = " + indiceC;
+                conet= con.getConnection();
+                st= conet.createStatement();
+                st.executeUpdate(sql);   
+            JOptionPane.showMessageDialog(null,"Se elimino el registro");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo eliminar el resgistro, error: "+e);
+        }
+   }
