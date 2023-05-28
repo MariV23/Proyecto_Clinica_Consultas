@@ -45,6 +45,7 @@ public class FrmLogin extends javax.swing.JFrame {
         lbImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Iniciar Sesión");
         setBackground(new java.awt.Color(255, 255, 204));
 
         lbUser.setFont(new java.awt.Font("Verdana", 0, 30)); // NOI18N
@@ -58,6 +59,11 @@ public class FrmLogin extends javax.swing.JFrame {
 
         txtUser.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         txtUser.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
+            }
+        });
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
         txtPassword.setHorizontalAlignment(javax.swing.JTextField.LEFT);
@@ -67,7 +73,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnAceptar.setBackground(new java.awt.Color(204, 204, 255));
+        btnAceptar.setBackground(new java.awt.Color(108, 174, 241));
         btnAceptar.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +82,7 @@ public class FrmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setBackground(new java.awt.Color(204, 204, 255));
+        btnCancelar.setBackground(new java.awt.Color(108, 174, 241));
         btnCancelar.setFont(new java.awt.Font("Serif", 0, 24)); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -116,7 +122,7 @@ public class FrmLogin extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(46, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lbImage, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -153,10 +159,30 @@ public class FrmLogin extends javax.swing.JFrame {
                 frmP.setVisible(true);
             }
             else
-                JOptionPane.showMessageDialog(this, "Error al introducir los datos");
+            {
+                if(usr.isEmpty() && pwd.isEmpty())
+                {
+                  JOptionPane.showMessageDialog(this, "Introduce tu usuario y contraseña");
+                }
+                else
+                {
+                    if(usr.isEmpty())
+                    {
+                        JOptionPane.showMessageDialog(this, "Introduce el usuario");
+                    }
+                    else
+                    {
+                        if(pwd.isEmpty())
+                        {
+                            JOptionPane.showMessageDialog(this, "Introduce la contraseña");
+                        }
+                    }
+                }
+            }
+                
         }catch(Exception e)
         {
-            JOptionPane.showMessageDialog(this, "Error al introducir los datos");
+            JOptionPane.showMessageDialog(this, "Los datos no son correctos");
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
@@ -170,6 +196,7 @@ public class FrmLogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+   //Método para al dar enter después de escribir la contraseña entra a la interfaz
     private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
         // TODO add your handling code here:
         try{
@@ -182,6 +209,32 @@ public class FrmLogin extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
     }//GEN-LAST:event_txtPasswordKeyReleased
+
+    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+        // TODO add your handling code here:
+    
+        try{
+            int key = evt.getKeyChar();
+            
+            boolean numValidos = key>=48 && key<=57;
+            boolean letMayusculas = key>=65 && key<=90;
+            boolean letMinusculas = key>=97 && key<=122;
+            boolean borrar = key >=8 && key <=8;
+            if(txtUser.getText().length()>4)
+            {
+                evt.consume();
+                //JOptionPane.showMessageDialog(this, "Estas intentando rebazar la longitud permitida");
+            }
+            if(!(numValidos || letMayusculas || letMinusculas || borrar))
+            {
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "No se permiten esos caracteres");
+            }
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error"+e);
+        }
+    }//GEN-LAST:event_txtUserKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

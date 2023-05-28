@@ -47,7 +47,7 @@ public class FrmConsultas extends javax.swing.JDialog {
     
     void consulta_Citas()
     {
-        String sql = "select * from citas";
+        String sql = "SELECT c.id_Citas,c.n_Paciente,c.fecha,c.hora,e.nombre as 'especialista' FROM citas c inner join pacientes p on c.id_Paciente = p.id_Pacientes inner join especialistas e on c.id_Especialista = e.id_Especialistas;";
         
         try{
             conet = con.getConnection();
@@ -61,8 +61,7 @@ public class FrmConsultas extends javax.swing.JDialog {
                 cit [1] = rs.getString("n_paciente");
                 cit [2] = rs.getString("fecha");
                 cit [3] = rs.getString("hora");
-                cit [4] = rs.getInt("id_Paciente");
-                cit [5] = rs.getInt("id_Especialista");
+                cit [4] = rs.getString("especialista");
                 
                 modelo.addRow(cit);
             }
@@ -94,13 +93,15 @@ public class FrmConsultas extends javax.swing.JDialog {
         jlabNumCi = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jEsp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel2.setText("Nombre del paciente:");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel3.setText("Hora:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -115,9 +116,17 @@ public class FrmConsultas extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Núm. Cita", "Nombre del paciente", "Fecha", "Hora", "Id_Paciente", "Id_Especialista"
+                "Núm. Cita", "Nombre del paciente", "Fecha", "Hora", "Especialista"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCitas.setRowHeight(28);
         tblCitas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -126,7 +135,7 @@ public class FrmConsultas extends javax.swing.JDialog {
         });
         jScrollPane1.setViewportView(tblCitas);
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel8.setText("Número de cita:");
 
         jlabNumCi.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -153,6 +162,11 @@ public class FrmConsultas extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel5.setText("Especialista:");
+
+        jEsp.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -170,12 +184,16 @@ public class FrmConsultas extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel2)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel5))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jlabNomP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jlabHora, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jlabNumCi, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jlabNumCi, javax.swing.GroupLayout.DEFAULT_SIZE, 196, Short.MAX_VALUE)
+                            .addComponent(jEsp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -198,8 +216,12 @@ public class FrmConsultas extends javax.swing.JDialog {
                     .addComponent(jLabel3)
                     .addComponent(jlabHora, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jEsp, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
         );
 
         pack();
@@ -215,13 +237,15 @@ public class FrmConsultas extends javax.swing.JDialog {
             String nomP = (String)tblCitas.getValueAt(fila, 1);
             String fecha = (String)tblCitas.getValueAt(fila, 2);
             String hora = (String)tblCitas.getValueAt(fila, 3);
-            int idPac = Integer.parseInt((String)tblCitas.getValueAt(fila, 4).toString());
-            int idEsp = Integer.parseInt((String)tblCitas.getValueAt(fila, 5).toString());
+            //int idPac = Integer.parseInt((String)tblCitas.getValueAt(fila, 4).toString());
+            //int idEsp = Integer.parseInt((String)tblCitas.getValueAt(fila, 5).toString());
+            String especialista = (String)tblCitas.getValueAt(fila, 4);
            
             
            jlabNumCi.setText(""+ indiceCit);
            jlabNomP.setText(""+nomP);
            jlabHora.setText(""+hora);
+           jEsp.setText(""+especialista);
          } 
         }catch (Exception e)
         {
@@ -232,10 +256,12 @@ public class FrmConsultas extends javax.swing.JDialog {
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jEsp;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

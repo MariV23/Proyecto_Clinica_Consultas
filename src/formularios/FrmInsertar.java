@@ -60,7 +60,8 @@ public class FrmInsertar extends javax.swing.JDialog {
 		
                 nom [0] = rs.getInt("id_Pacientes");
                 nom [1] = rs.getString("nombre");
-                nom [2] = rs.getInt("telefono");
+                nom [2] = rs.getString("telefono");
+                //nom[6] = rs.getBigDecimal("telefono");
                 nom [3] = rs.getString("correo");
                 nom [4] = rs.getInt("edad");
                
@@ -166,13 +167,17 @@ public class FrmInsertar extends javax.swing.JDialog {
         btnAgregarCita = new javax.swing.JButton();
         btnActPaci = new javax.swing.JButton();
         btnElimPaci = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPaci = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setSize(new java.awt.Dimension(0, 0));
+
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel3.setText("Datos generales:");
@@ -181,6 +186,11 @@ public class FrmInsertar extends javax.swing.JDialog {
         jLabel2.setText("Nombre del paciente:");
 
         idPac.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        idPac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                idPacKeyTyped(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel4.setText("Teléfono:");
@@ -189,8 +199,18 @@ public class FrmInsertar extends javax.swing.JDialog {
         jLabel5.setText("Correo:");
 
         nomPac.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        nomPac.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nomPacKeyTyped(evt);
+            }
+        });
 
         telefonoP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        telefonoP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoPKeyTyped(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel6.setText("Edad:");
@@ -201,6 +221,11 @@ public class FrmInsertar extends javax.swing.JDialog {
         jLabel7.setText("Id_Paciente:");
 
         edadP.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        edadP.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                edadPKeyTyped(evt);
+            }
+        });
 
         btnAgregarCita.setFont(new java.awt.Font("Lucida Bright", 0, 18)); // NOI18N
         btnAgregarCita.setText("Agregar");
@@ -226,46 +251,59 @@ public class FrmInsertar extends javax.swing.JDialog {
             }
         });
 
+        btnLimpiar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(665, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4))
-                                .addGap(45, 45, 45)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(telefonoP)
-                                    .addComponent(correoP, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
-                                    .addComponent(edadP)))
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel7))
-                                .addGap(45, 45, 45)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(idPac, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(nomPac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(btnAgregarCita, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnActPaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnElimPaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(113, 113, 113))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jSeparator1)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(311, 311, 311)
+                                        .addComponent(btnLimpiar)))
+                                .addGap(107, 107, 107))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel5)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel4))
+                                        .addGap(45, 45, 45)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(telefonoP)
+                                            .addComponent(correoP, javax.swing.GroupLayout.DEFAULT_SIZE, 169, Short.MAX_VALUE)
+                                            .addComponent(edadP)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel7))
+                                        .addGap(45, 45, 45)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(idPac, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(nomPac, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnActPaci, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(btnAgregarCita, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnElimPaci, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(52, 52, 52)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -296,7 +334,7 @@ public class FrmInsertar extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
-                            .addComponent(edadP, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(edadP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
                         .addComponent(btnAgregarCita)
@@ -304,7 +342,9 @@ public class FrmInsertar extends javax.swing.JDialog {
                         .addComponent(btnActPaci)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnElimPaci)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnLimpiar)
+                .addContainerGap(211, Short.MAX_VALUE))
         );
 
         tblPaci.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
@@ -313,9 +353,17 @@ public class FrmInsertar extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Id_Paciente", "Nombre del paciente", "Telefono", "Correo", "Edad"
+                "Id_Paciente", "Nombre del paciente", "Teléfono", "Correo", "Edad"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblPaci.setRowHeight(28);
         tblPaci.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -346,16 +394,19 @@ public class FrmInsertar extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/enfermera.jpg"))); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 839, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 643, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,8 +414,12 @@ public class FrmInsertar extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(87, 87, 87)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 12, Short.MAX_VALUE))
+                    .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -397,7 +452,7 @@ public class FrmInsertar extends javax.swing.JDialog {
          if (fila > -1){           
             indiceP = Integer.parseInt((String)tblPaci.getValueAt(fila, 0).toString());
             String nombre = (String)tblPaci.getValueAt(fila, 1);
-            int telefono = Integer.parseInt((String)tblPaci.getValueAt(fila, 2).toString());
+            String telefono = (String)tblPaci.getValueAt(fila, 2);
             String correo = (String)tblPaci.getValueAt(fila, 3);
             int edad = Integer.parseInt((String)tblPaci.getValueAt(fila, 4).toString());
            
@@ -412,7 +467,93 @@ public class FrmInsertar extends javax.swing.JDialog {
         {
             JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
         }
+        btnAgregarCita.setEnabled(false);
     }//GEN-LAST:event_tblPaciMouseClicked
+
+    private void telefonoPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoPKeyTyped
+        // TODO add your handling code here:
+        try{
+            if(telefonoP.getText().length()>=10)
+            {
+                evt.consume();
+                //JOptionPane.showMessageDialog(this, "Estas intentando rebazar la longitud permitida");
+            }
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }//GEN-LAST:event_telefonoPKeyTyped
+
+    private void idPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_idPacKeyTyped
+        // TODO add your handling code here:
+        try{
+            int key = evt.getKeyChar();
+            boolean numValidos = key>=48 && key<=57;
+            boolean borrar = key >=8 && key <=8;
+            if(idPac.getText().length() >=4)
+            {
+                evt.consume();
+            }
+            if(!(numValidos || borrar))
+            {
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "El id_Paciente debe ser solo números");
+            }
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }//GEN-LAST:event_idPacKeyTyped
+
+    private void nomPacKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nomPacKeyTyped
+        // TODO add your handling code here:
+        try{
+            int key = evt.getKeyChar();
+            boolean letMayusculas = key>=65 && key<=90;
+            boolean letMinusculas = key>=97 && key<=122;
+            boolean borrar = key >=8 && key <=8;
+            boolean espacio = key >=32 && key <=32;
+            if(!(letMayusculas || letMinusculas || borrar ||espacio))
+            {
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "El nombre debe ser solo letras");
+            }
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }//GEN-LAST:event_nomPacKeyTyped
+
+    private void edadPKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_edadPKeyTyped
+        // TODO add your handling code here:
+        try{
+            int key = evt.getKeyChar();
+            boolean numValidos = key>=49 && key<=57;
+            boolean borrar = key >=8 && key <=8;
+            if(edadP.getText().length() >=2)
+            {
+                evt.consume();
+            }
+            if(!(numValidos || borrar))
+            {
+                evt.consume();
+                JOptionPane.showMessageDialog(this, "Estas introduciendo una edad inválida");
+            }
+        }catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error: "+e);
+        }
+    }//GEN-LAST:event_edadPKeyTyped
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        idPac.setText("");
+        nomPac.setText("");
+        telefonoP.setText("");
+        correoP.setText("");
+        edadP.setText("");
+        btnAgregarCita.setEnabled(true);
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -423,6 +564,7 @@ public class FrmInsertar extends javax.swing.JDialog {
     private javax.swing.JButton btnActPaci;
     private javax.swing.JButton btnAgregarCita;
     private javax.swing.JButton btnElimPaci;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JTextField correoP;
     private javax.swing.JTextField edadP;
     private javax.swing.JTextField idPac;
@@ -433,6 +575,7 @@ public class FrmInsertar extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;

@@ -16,7 +16,7 @@ public class Principal {
     public static void main(String[] args) {
         FrmLogin frmLogin = new FrmLogin();
         frmLogin.setSize(600,600);
-        frmLogin.setTitle("Iniciar Sesion");
+        frmLogin.setTitle("Iniciar Sesión");
         frmLogin.setLocation(650, 250);
         frmLogin.setVisible(true);
     }
